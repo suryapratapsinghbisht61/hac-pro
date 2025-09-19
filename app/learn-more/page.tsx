@@ -4,9 +4,24 @@ import { motion } from "framer-motion"
 import { ArrowRight, Brain, Users, Target, Globe, Rocket, BookOpen, Trophy, Zap, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { useState, useEffect } from "react" // Add useState and useEffect imports
 
 export default function LearnMorePage() {
   const router = useRouter()
+  const [isClient, setIsClient] = useState(false) // Add client-side check
+  const [windowDimensions, setWindowDimensions] = useState({ width: 1200, height: 800 }) // Add state for window dimensions with default values
+
+  useEffect(() => {
+    setIsClient(true)
+    if (typeof window !== "undefined") {
+      setWindowDimensions({ width: window.innerWidth, height: window.innerHeight })
+      const handleResize = () => {
+        setWindowDimensions({ width: window.innerWidth, height: window.innerHeight })
+      }
+      window.addEventListener("resize", handleResize)
+      return () => window.removeEventListener("resize", handleResize)
+    }
+  }, [])
 
   const fadeInUp = {
     initial: { opacity: 0, y: 60 },
@@ -60,26 +75,27 @@ export default function LearnMorePage() {
 
         {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {[...Array(20)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-2 h-2 bg-white/20 rounded-full"
-              initial={{
-                x: Math.random() * window.innerWidth,
-                y: Math.random() * window.innerHeight,
-                opacity: 0,
-              }}
-              animate={{
-                y: [null, -100],
-                opacity: [0, 1, 0],
-              }}
-              transition={{
-                duration: Math.random() * 3 + 2,
-                repeat: Number.POSITIVE_INFINITY,
-                delay: Math.random() * 2,
-              }}
-            />
-          ))}
+          {isClient &&
+            [...Array(20)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-2 h-2 bg-white/20 rounded-full"
+                initial={{
+                  x: Math.random() * windowDimensions.width, // Use windowDimensions state instead of direct window access
+                  y: Math.random() * windowDimensions.height, // Use windowDimensions state instead of direct window access
+                  opacity: 0,
+                }}
+                animate={{
+                  y: [null, -100],
+                  opacity: [0, 1, 0],
+                }}
+                transition={{
+                  duration: Math.random() * 3 + 2,
+                  repeat: Number.POSITIVE_INFINITY,
+                  delay: Math.random() * 2,
+                }}
+              />
+            ))}
         </div>
       </section>
 

@@ -174,9 +174,9 @@ export default function TestimonialsSection() {
             >
               <div className="bg-[#f5f5dc]/10 backdrop-blur-sm rounded-2xl p-8 border border-[#f5f5dc]/20 max-w-2xl mx-auto text-center">
                 <img
-                  src={testimonial.avatar || "/placeholder.svg"}
+                  src={`/abstract-geometric-shapes.png?key=j23en&height=64&width=64&query=${testimonial.role.toLowerCase()}-avatar-professional-headshot`}
                   alt={testimonial.name}
-                  className="w-16 h-16 rounded-full mx-auto mb-4"
+                  className="w-16 h-16 rounded-full mx-auto mb-4 object-cover"
                 />
                 <p className="text-[#fafafa] text-lg mb-4 italic">"{testimonial.feedback}"</p>
                 <div>

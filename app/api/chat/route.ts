@@ -88,17 +88,81 @@ export async function POST(request: NextRequest) {
 
     const data = await response.json()
 
-    if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
+    if (!data.candidates || !Array.isArray(data.candidates) || data.candidates.length === 0) {
       console.error("Invalid response structure:", data)
       return NextResponse.json(
         {
-          error: "Invalid response from Gemini API",
+          error: "Invalid response from Gemini API - no candidates found",
         },
         { status: 500 },
       )
     }
 
-    const aiText = data.candidates[0]?.content?.parts[0]?.text || "Sorry, I could not generate a response."
+    const candidate = data.candidates[0]
+
+    if (!candidate) {
+      console.error("No candidate found in response:", data)
+      return NextResponse.json(
+        {
+          error: "No response generated from Gemini API",
+        },
+        { status: 500 },
+      )
+    }
+
+    // Handle MAX_TOKENS finish reason with empty content
+    if (candidate.finishReason === "MAX_TOKENS") {
+      return NextResponse.json({
+        text: "I apologize, but my response was cut off due to length limits. Please try asking a more specific question or break your request into smaller parts.",
+        resources: [
+          {
+            type: "youtube" as const,
+            title: `Tutorial: ${message.slice(0, 30)}...`,
+            url: `https://youtube.com/results?search_query=${encodeURIComponent(message)}`,
+            description: "Video explanations and tutorials",
+          },
+          {
+            type: "khan" as const,
+            title: "Khan Academy Resources",
+            url: `https://khanacademy.org/search?page_search_query=${encodeURIComponent(message)}`,
+            description: "Interactive lessons and practice",
+          },
+        ],
+      })
+    }
+
+    // Check for content structure
+    if (!candidate.content) {
+      console.error("No content in candidate:", candidate)
+      return NextResponse.json(
+        {
+          error: "Invalid response structure from Gemini API - no content",
+        },
+        { status: 500 },
+      )
+    }
+
+    // Handle different content structures
+    let aiText = "Sorry, I could not generate a response."
+
+    if (candidate.content.parts && Array.isArray(candidate.content.parts) && candidate.content.parts.length > 0) {
+      // Standard structure with parts array
+      aiText = candidate.content.parts[0]?.text || aiText
+    } else if (candidate.content.text) {
+      // Alternative structure with direct text
+      aiText = candidate.content.text
+    } else if (typeof candidate.content === "string") {
+      // Direct string content
+      aiText = candidate.content
+    } else {
+      console.error("Unexpected content structure:", candidate.content)
+      return NextResponse.json(
+        {
+          error: "Unexpected response format from Gemini API",
+        },
+        { status: 500 },
+      )
+    }
 
     // Generate relevant resources based on the question topic
     const resources = [

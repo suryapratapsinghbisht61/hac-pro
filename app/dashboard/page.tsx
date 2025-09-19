@@ -63,11 +63,23 @@ export default function AILearningDashboard() {
   const [courseText, setCourseText] = useState("")
   const [expandedHistory, setExpandedHistory] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState("")
+  const [isClient, setIsClient] = useState(false) // Add client-side check
+  const [windowWidth, setWindowWidth] = useState(0) // Add windowWidth state to track screen size
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }
+
+  useEffect(() => {
+    setIsClient(true)
+    if (typeof window !== "undefined") {
+      setWindowWidth(window.innerWidth)
+      const handleResize = () => setWindowWidth(window.innerWidth)
+      window.addEventListener("resize", handleResize)
+      return () => window.removeEventListener("resize", handleResize)
+    }
+  }, [])
 
   useEffect(() => {
     scrollToBottom()
@@ -226,7 +238,7 @@ export default function AILearningDashboard() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-pink-50 to-rose-100 text-gray-800">
       {/* Sidebar */}
       <AnimatePresence>
-        {(sidebarOpen || window.innerWidth >= 768) && (
+        {(sidebarOpen || (isClient && windowWidth >= 768)) && ( // Use windowWidth state instead of direct window access
           <motion.div
             initial={{ x: -300 }}
             animate={{ x: 0 }}
