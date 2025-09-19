@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { useRouter } from "next/navigation" // Added router import for go back functionality
+import { useRouter } from "next/navigation"
 import {
   MessageCircle,
   BookOpen,
@@ -52,7 +52,7 @@ interface CourseSummary {
 }
 
 export default function AILearningDashboard() {
-  const router = useRouter() // Added router hook for navigation
+  const router = useRouter()
   const [activeTab, setActiveTab] = useState<"tutor" | "summary" | "history">("tutor")
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [messages, setMessages] = useState<Message[]>([])
@@ -85,66 +85,33 @@ export default function AILearningDashboard() {
     }
   }
 
-  // Mock Gemini API call - Enhanced with better error handling and API key management
   const askGemini = async (question: string): Promise<{ text: string; resources: Resource[] }> => {
-    const GEMINI_API_KEY = "AIzaSyBqJzQvGxqKZoF8rN3mL7pW2sT9uV4xY6z"
-    const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent"
-
     try {
-      const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+      const response = await fetch("/api/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          contents: [
-            {
-              role: "user",
-              parts: [
-                {
-                  text: `${question}\n\nPlease provide a helpful educational response and suggest relevant learning resources.`,
-                },
-              ],
-            },
-          ],
-          generationConfig: {
-            temperature: 0.7,
-            topK: 40,
-            topP: 0.95,
-            maxOutputTokens: 1024,
-          },
-        }),
+        body: JSON.stringify({ message: question }),
       })
 
+      const data = await response.json()
+
       if (!response.ok) {
-        throw new Error(`Gemini API error: ${response.status}`)
+        return {
+          text: `⚠️ ${data.error || "Something went wrong. Please try again."}`,
+          resources: [],
+        }
       }
 
-      const data = await response.json()
-      const aiText = data.candidates[0]?.content?.parts[0]?.text || "Sorry, I could not generate a response."
-
-      // Generate relevant resources based on the question topic
-      const resources: Resource[] = [
-        {
-          type: "youtube" as const,
-          title: `Tutorial: ${question.slice(0, 30)}...`,
-          url: `https://youtube.com/results?search_query=${encodeURIComponent(question)}`,
-          description: "Video explanations and tutorials",
-        },
-        {
-          type: "khan" as const,
-          title: "Khan Academy Resources",
-          url: `https://khanacademy.org/search?page_search_query=${encodeURIComponent(question)}`,
-          description: "Interactive lessons and practice",
-        },
-      ]
-
-      return { text: aiText, resources }
-    } catch (error) {
-      console.error("Error calling Gemini API:", error)
-      // Fallback response
       return {
-        text: "I'm having trouble connecting right now, but I'd be happy to help you learn! Could you try asking your question again?",
+        text: data.text,
+        resources: data.resources || [],
+      }
+    } catch (error) {
+      console.error("Error calling chat API:", error)
+      return {
+        text: "I'm having trouble connecting to the AI service right now. Please make sure your GEMINI_API_KEY environment variable is set in your project settings.",
         resources: [],
       }
     }

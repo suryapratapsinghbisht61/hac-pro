@@ -4,76 +4,76 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Updated color tokens for futuristic Learn More page design */
-  --background: #ffffff; /* Page background */
-  --foreground: #4c6ef5; /* Main text color */
-  --card: #f0f4f8; /* Card background */
-  --card-foreground: #1f2937; /* Card text color */
-  --popover: #ffffff; /* Popover background */
-  --popover-foreground: #4c6ef5; /* Popover text color */
-  --primary: #4c6ef5; /* Primary buttons */
+  /* Updated color tokens for pricing page design */
+  --background: #f1f5f9; /* Light gray background for the main page */
+  --foreground: #1f2937; /* Dark gray for primary text */
+  --card: rgba(255, 255, 255, 0.9); /* Glassmorphism effect with slight opacity */
+  --card-foreground: #1f2937; /* Text color on cards */
+  --popover: rgba(255, 255, 255, 0.9); /* For popovers */
+  --popover-foreground: #1f2937; /* Text color for popovers */
+  --primary: #1f2937; /* Primary button and text color */
   --primary-foreground: #ffffff; /* Text on primary buttons */
-  --secondary: #39d98a; /* Secondary buttons */
-  --secondary-foreground: #ffffff; /* Text on secondary buttons */
-  --muted: #f0f4f8; /* Muted text */
+  --secondary: #8b5cf6; /* Accent color for links and hover states */
+  --secondary-foreground: #ffffff; /* Text color on secondary elements */
+  --muted: #f1f5f9; /* For muted text */
   --muted-foreground: #6b7280; /* Muted text color */
-  --accent: #ff6b6b; /* Accent color for highlights */
-  --accent-foreground: #ffffff; /* Text on accent elements */
-  --destructive: #ff6b6b; /* Destructive actions */
-  --destructive-foreground: #ffffff; /* Text on destructive actions */
-  --border: #e2e8f0; /* Borders */
-  --input: #ffffff; /* Input fields background */
-  --ring: rgba(76, 110, 245, 0.5); /* Focus ring */
-  --chart-1: #4c6ef5; /* Chart color 1 */
-  --chart-2: #6f2c91; /* Chart color 2 */
-  --chart-3: #39d98a; /* Chart color 3 */
-  --chart-4: #ff6b6b; /* Chart color 4 */
-  --chart-5: #f0f4f8; /* Chart color 5 */
-  --radius: 0.5rem; /* Border radius for cards and buttons */
-  --sidebar: #f0f4f8; /* Sidebar background */
-  --sidebar-foreground: #4c6ef5; /* Sidebar text color */
-  --sidebar-primary: #ffffff; /* Sidebar primary background */
+  --accent: #8b5cf6; /* For accent elements */
+  --accent-foreground: #ffffff; /* Text color on accent elements */
+  --destructive: #dc2626; /* For error messages */
+  --destructive-foreground: #ffffff; /* Text color for destructive elements */
+  --border: #e5e7eb; /* Light border color */
+  --input: #ffffff; /* Input field background */
+  --ring: rgba(139, 92, 246, 0.5); /* Ring color for focus states */
+  --chart-1: #4f46e5; /* Chart color 1 */
+  --chart-2: #f43f5e; /* Chart color 2 */
+  --chart-3: #3b82f6; /* Chart color 3 */
+  --chart-4: #22c55e; /* Chart color 4 */
+  --chart-5: #fbbf24; /* Chart color 5 */
+  --radius: 0.5rem; /* Rounded corners */
+  --sidebar: #ffffff; /* Sidebar background */
+  --sidebar-foreground: #1f2937; /* Sidebar text */
+  --sidebar-primary: #f1f5f9; /* Sidebar primary background */
   --sidebar-primary-foreground: #1f2937; /* Sidebar primary text */
-  --sidebar-accent: #39d98a; /* Sidebar accent color */
+  --sidebar-accent: #8b5cf6; /* Sidebar accent color */
   --sidebar-accent-foreground: #ffffff; /* Sidebar accent text */
-  --sidebar-border: #e2e8f0; /* Sidebar border */
-  --sidebar-ring: rgba(76, 110, 245, 0.5); /* Sidebar focus ring */
+  --sidebar-border: #e5e7eb; /* Sidebar border color */
+  --sidebar-ring: rgba(139, 92, 246, 0.5); /* Sidebar focus ring */
 }
 
 .dark {
   /* Dark mode maintains the same futuristic theme with adjusted contrast */
   --background: #0f172a;
   --foreground: #f1f5f9;
-  --card: #1e293b;
+  --card: rgba(30, 41, 59, 0.9);
   --card-foreground: #f1f5f9;
-  --popover: #1e293b;
+  --popover: rgba(30, 41, 59, 0.9);
   --popover-foreground: #f1f5f9;
-  --primary: #4c6ef5;
+  --primary: #8b5cf6;
   --primary-foreground: #ffffff;
-  --secondary: #39d98a;
+  --secondary: #a855f7;
   --secondary-foreground: #ffffff;
   --muted: #1e293b;
   --muted-foreground: #94a3b8;
-  --accent: #ff6b6b;
+  --accent: #8b5cf6;
   --accent-foreground: #ffffff;
-  --destructive: #ff6b6b;
+  --destructive: #dc2626;
   --destructive-foreground: #ffffff;
   --border: #334155;
   --input: #1e293b;
-  --ring: rgba(76, 110, 245, 0.5);
-  --chart-1: #4c6ef5;
-  --chart-2: #6f2c91;
-  --chart-3: #39d98a;
-  --chart-4: #ff6b6b;
-  --chart-5: #1e293b;
+  --ring: rgba(139, 92, 246, 0.5);
+  --chart-1: #4f46e5;
+  --chart-2: #f43f5e;
+  --chart-3: #3b82f6;
+  --chart-4: #22c55e;
+  --chart-5: #fbbf24;
   --sidebar: #1e293b;
   --sidebar-foreground: #f1f5f9;
-  --sidebar-primary: #4c6ef5;
+  --sidebar-primary: #8b5cf6;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #39d98a;
+  --sidebar-accent: #a855f7;
   --sidebar-accent-foreground: #ffffff;
   --sidebar-border: #334155;
-  --sidebar-ring: rgba(76, 110, 245, 0.5);
+  --sidebar-ring: rgba(139, 92, 246, 0.5);
 }
 
 @theme inline {

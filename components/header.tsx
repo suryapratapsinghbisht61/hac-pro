@@ -1,5 +1,7 @@
 "use client"
 
+import Link from "next/link"
+
 interface HeaderProps {
   onJoinBeta?: () => void
 }
@@ -8,11 +10,11 @@ export default function Header({ onJoinBeta }: HeaderProps) {
   return (
     <header className="relative z-20 flex items-center justify-between p-6">
       <div className="flex items-center">
-        <div className="text-[#fafafa] font-bold text-2xl tracking-wider">
+        <Link href="/" className="text-[#fafafa] font-bold text-2xl tracking-wider">
           <span className="animate-pulse">F</span>
           <span className="animate-bounce delay-100">L</span>
           <span className="animate-pulse delay-200">Y</span>
-        </div>
+        </Link>
       </div>
 
       <nav className="flex items-center space-x-2">
@@ -28,6 +30,12 @@ export default function Header({ onJoinBeta }: HeaderProps) {
         >
           Features
         </a>
+        <Link
+          href="/pricing"
+          className="text-[#fafafa]/80 hover:text-[#fafafa] text-xs font-light px-3 py-2 rounded-full hover:bg-[#f5f5dc]/10 transition-all duration-200"
+        >
+          Pricing
+        </Link>
         <a
           href="#"
           className="text-[#fafafa]/80 hover:text-[#fafafa] text-xs font-light px-3 py-2 rounded-full hover:bg-[#f5f5dc]/10 transition-all duration-200"
@@ -42,7 +50,7 @@ export default function Header({ onJoinBeta }: HeaderProps) {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17L17 7M17 7H7M17 7V17" />
           </svg>
         </button>
-        <button 
+        <button
           onClick={onJoinBeta}
           className="px-6 py-2 rounded-full bg-[#f5f5dc] text-[#1a1a1a] font-normal text-xs transition-all duration-300 hover:bg-[#f5f5dc]/90 cursor-pointer h-8 flex items-center z-10"
         >

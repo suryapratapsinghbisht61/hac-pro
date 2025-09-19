@@ -3,7 +3,7 @@
 import type React from "react"
 import { motion } from "framer-motion"
 import { useState } from "react"
-import { Linkedin, Twitter, Instagram } from "lucide-react"
+import { Linkedin, Twitter, Instagram, MessageCircle, Mail } from "lucide-react"
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
@@ -34,6 +34,39 @@ export default function ContactSection() {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-4xl font-light text-[#fafafa] mb-8">Get in Touch</h2>
+
+            <div className="mb-8 space-y-4">
+              <motion.a
+                href="https://wa.me/918449659345"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.02, x: 5 }}
+                className="flex items-center gap-4 p-4 bg-[#f5f5dc]/10 backdrop-blur-sm border border-[#f5f5dc]/20 rounded-lg hover:bg-[#25D366]/10 hover:border-[#25D366]/30 transition-all duration-200 group"
+              >
+                <div className="w-12 h-12 bg-[#25D366]/20 rounded-full flex items-center justify-center group-hover:bg-[#25D366]/30 transition-colors">
+                  <MessageCircle className="w-6 h-6 text-[#25D366]" />
+                </div>
+                <div>
+                  <h3 className="text-[#fafafa] font-medium">Chat with us on WhatsApp</h3>
+                  <p className="text-[#fafafa]/70 text-sm">+91 8449659345</p>
+                </div>
+              </motion.a>
+
+              <motion.a
+                href="mailto:suryapratapsinghbisht61@gmail.com"
+                whileHover={{ scale: 1.02, x: 5 }}
+                className="flex items-center gap-4 p-4 bg-[#f5f5dc]/10 backdrop-blur-sm border border-[#f5f5dc]/20 rounded-lg hover:bg-[#dc2626]/10 hover:border-[#dc2626]/30 transition-all duration-200 group"
+              >
+                <div className="w-12 h-12 bg-[#dc2626]/20 rounded-full flex items-center justify-center group-hover:bg-[#dc2626]/30 transition-colors">
+                  <Mail className="w-6 h-6 text-[#dc2626]" />
+                </div>
+                <div>
+                  <h3 className="text-[#fafafa] font-medium">Email us</h3>
+                  <p className="text-[#fafafa]/70 text-sm">suryapratapsinghbisht61@gmail.com</p>
+                </div>
+              </motion.a>
+            </div>
+
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <input
